@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Brinquedos</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 1.5em;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    #filtros {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 100px 30px 20px 30px;
+    }
+
+    #busca-produto {
+      width: 60%;
+      border-radius: 4px;
+      padding: 8px;
+    }
+
+    #filtro-categoria {
+      width: 35%;
+      border-radius: 4px;
+      padding: 8px;
+    }
+
+    #lista-produtos {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+
+    .cartao-produto {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+      background-color: white;
+    }
+
+    .cartao-produto img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .nome-produto {
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+
+    .categoria-produto {
+      font-size: 0.9em;
+      color: #666;
+      margin: 5px 0;
+    }
+
+    .preco-produto {
+      font-size: 1em;
+      color: #e74c3c;
+      margin: 5px 0;
+    }
+
+    .btn-carrinho {
+      background: #2980b9;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-carrinho:hover {
+      background: #1c5980;
+    }
+
+    footer {
+      background-color: #2c3e50;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 0.9em;
+      margin-top: 40px;
+    }
+
+    footer img {
+      width: 30px;
+      height: 30px;
+      margin: 0 10px;
+      border-radius: 50%;
+    }
+
+    .RS{
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Catálogo de Brinquedos</h1>
+    <nav>
+      <a href="#">Início</a>
+    </nav>
+  </header>
+
+  <div id="filtros">
+    <input type="text" id="busca-produto" placeholder="Pesquise por nome de brinquedo..." />
+    <select id="filtro-categoria">
+      <option value="Todas">Todas as Categorias</option>
+      <option value="educativo">Educativo</option>
+      <option value="pelucia">Pelúcia</option>
+      <option value="bicicleta">Bicicleta</option>
+      <option value="lego">Lego</option>
+    </select>
+  </div>
+
+  <main id="lista-produtos"></main>
+
+  <footer>
+    <p>© 2025 Catálogo de Brinquedos. Todos os Direitos Reservados.</p>
+    <img src="assets/facebook.webp" alt="Facebook" class="RS">
+    <img src="assets/instagram.jpeg" alt="Instagram" class="RS">
+  </footer>
+
+  <script>
+    const produtos = [
+      // === EDUCACIONAL ===
+        { nome: "DJI Mini Drone Deerc D20 Câmara 720p", categoria: "educativo", preco: 1200.00, imagem: "assets/drone.webp" },
+        { nome: "LeapFrog LeapStart Interactive", categoria: "educativo", preco: 350.00, imagem: "assets/LeapFrog.png" },
+        { nome: "Smart Lab Smart Circuits", categoria: "educativo", preco: 249.90, imagem: "assets/SmartLab.jpeg" },
+        { nome: "Kano Computer Kit", categoria: "educativo", preco: 850.00, imagem: "assets/KanoComputerKit.webp" },
+        { nome: "Osmo Genius Starter Kit", categoria: "educativo", preco: 799.00, imagem: "assets/OsmoGenius.jpg" },
+        { nome: "LittleBits Electronics Kit", categoria: "educativo", preco: 450.00, imagem: "assets/LittleBits.webp" },
+        { nome: "Sphero SPRK+", categoria: "educativo", preco: 999.00, imagem: "assets/Sphero.jpg" },
+        { nome: "Robo Wunderkind", categoria: "educativo", preco: 1199.00, imagem: "assets/RoboWunderkind.jpg" },
+      // === PELÚCIA ===
+        { nome: "Pikachu de Pelúcia Gigante", categoria: "pelucia", preco: 1000.00, imagem: "assets/pikachu.jpg" },
+        { nome: "FurReal Cubby, o Urso", categoria: "pelucia", preco: 499.00, imagem: "assets/FurReal.jpg" },
+        { nome: "Gund Teddy Bear", categoria: "pelucia", preco: 199.90, imagem: "assets/GundTeddy.jpg" },
+        { nome: "Jellycat Bashful Bunny", categoria: "pelucia", preco: 179.90, imagem: "assets/Jellycat.webp" },
+        { nome: "Teddy Ruxpin Animado", categoria: "pelucia", preco: 599.00, imagem: "assets/TeddyRuxpin.webp" },
+        { nome: "Squishmallows", categoria: "pelucia", preco: 99.90, imagem: "assets/Squishmallows.webp" },
+        { nome: "Peluche Pokemon Eevee", categoria: "pelucia", preco: 299.90, imagem: "assets/Eevee.webp" },
+        { nome: "Ty Beanie Babies", categoria: "pelucia", preco: 79.90, imagem: "assets/TyBeanie.webp" },
+
+      // === BICICLETA ===
+        { nome: "Bicicleta Elétrica Oggi Big Wheel 8.0", categoria: "bicicleta", preco: 9999.00, imagem: "assets/bike.png" },
+        { nome: "Bicicleta Aro 16 Caloi", categoria: "bicicleta", preco: 599.90, imagem: "assets/BicicletaAro16.webp" },
+        { nome: "Bicicleta Infantil Giro", categoria: "bicicleta", preco: 499.90, imagem: "assets/BicicletaInfantilGiro.jpeg" },
+        { nome: "Bicicleta Mountain Bike Specialized", categoria: "bicicleta", preco: 2500.00, imagem: "assets/MountainBikeSpecialized.png" },
+        { nome: "Xiaomi Mi Electric Scooter Pro 2", categoria: "bicicleta", preco: 3999.00, imagem: "assets/XiaomiMiScooter.webp" },
+        { nome: "Bicicleta Infantil Caloi Power", categoria: "bicicleta", preco: 349.90, imagem: "assets/BicicletaInfantilCaloiPower.webp" },
+        { nome: "Bicicleta de Equilíbrio Strider", categoria: "bicicleta", preco: 499.00, imagem: "assets/BicicletaEquilibrioStrider.jpg" },
+        { nome: "Bicicleta BMX Mongoose", categoria: "bicicleta", preco: 1200.00, imagem: "assets/BicicletaBMXMongoose.jpg" },
+
+      // === LEGO ===
+        { nome: "Lego Marvel", categoria: "lego", preco: 500.00, imagem: "assets/marvel.webp" },
+        { nome: "LEGO Mindstorms Robot Inventor", categoria: "lego", preco: 2399.00, imagem: "assets/RobotInventor.jpg" },
+        { nome: "LEGO City Fire Station", categoria: "lego", preco: 349.90, imagem: "assets/FireStation.webp" },
+        { nome: "LEGO Friends Heartlake City", categoria: "lego", preco: 299.90, imagem: "assets/FriendsHeartLakeCity.jpg" },
+        { nome: "LEGO Star Wars Millennium Falcon", categoria: "lego", preco: 899.90, imagem: "assets/MillenniumFalcon.avif" },
+        { nome: "LEGO Technic Bugatti Chiron", categoria: "lego", preco: 1799.90, imagem: "assets/TechnicBugattiChiron.jpg" },
+        { nome: "LEGO Harry Potter Hogwarts", categoria: "lego", preco: 699.90, imagem: "assets/HarryPotter.jpg" },
+        { nome: "LEGO Creator Expert Modular", categoria: "lego", preco: 999.90, imagem: "assets/CreatorExpertModular.webp" },
+    ];
+
+    function exibirProdutos(lista) {
+      const container = document.getElementById("lista-produtos");
+      container.innerHTML = "";
+
+      lista.forEach(produto => {
+        const card = document.createElement("div");
+        card.className = "cartao-produto";
+
+        card.innerHTML = `
+          <img src="${produto.imagem}" alt="${produto.nome}">
+          <h3 class="nome-produto">${produto.nome}</h3>
+          <p class="categoria-produto">${produto.categoria}</p>
+          <p class="preco-produto">R$ ${produto.preco.toFixed(2)}</p>
+          <button class="btn-carrinho" data-nome="${produto.nome}">Adicionar ao Carrinho</button>
+        `;
+
+        const botao = card.querySelector("button");
+        botao.addEventListener("click", () => {
+          alert("Produto adicionado ao carrinho: " + produto.nome);
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById("busca-produto").addEventListener("keyup", e => {
+      const valor = e.target.value.toLowerCase();
+      const filtrados = produtos.filter(p => p.nome.toLowerCase().includes(valor));
+      exibirProdutos(filtrados);
+    });
+
+    document.getElementById("filtro-categoria").addEventListener("change", e => {
+      const categoria = e.target.value;
+      if (categoria === "Todas") {
+        exibirProdutos(produtos);
+      } else {
+        const filtrados = produtos.filter(p => p.categoria === categoria);
+        exibirProdutos(filtrados);
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      exibirProdutos(produtos);
+    });
+  </script>
+</body>
+</html>
